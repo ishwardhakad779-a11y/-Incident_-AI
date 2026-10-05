@@ -2,6 +2,11 @@
 
 A multi-agent system built with **LangGraph** that automatically diagnoses production incidents, proposes fixes, and routes risky actions through a **human-in-the-loop approval gate** — mimicking how an SRE/on-call engineer triages real outages.
 
+**🔗 Live Demo:** https://incident-response-ai.onrender.com
+
+> ⏳ **Note:** This app is hosted on Render's free tier. If it has been idle, the first load can take about a minute while the server wakes up. Please wait, it will load.
+
+
 ## Why this project
 
 On-call engineers spend a huge amount of time on repetitive incident triage — reading logs, forming a hypothesis, and deciding on a fix. This agent automates the *diagnosis and recommendation* step while keeping a human in control of any risky action, which is how AI-assisted operations tooling is actually deployed in production today (not full autonomy, but assisted decision-making with guardrails).
