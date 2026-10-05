@@ -105,3 +105,13 @@ Being upfront about what this doesn't do well is more valuable to a reviewer tha
 ## License
 
 MIT
+
+## 👤 Author
+
+**Ishwar Dhakad**, Agentic AI Developer (Fresher), Indore, India
+
+- GitHub: https://github.com/ishwardhakad779-a11y
+- LinkedIn: https://www.linkedin.com/in/ishwar-dhakad-213b503b0/
+- Email: ishwardhakad779@gmail.com
+
+Open to internship / entry-level opportunities in Agentic AI, GenAI and LLM applications.
