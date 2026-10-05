@@ -1,0 +1,32 @@
+[
+  {
+    "id": "INC-001",
+    "diagnosis": "The payments\u2011service hit a saturated database: a sudden surge of queries (or a query\u2011plan change) drove MySQL/PostgreSQL CPU to ~92\u202f%, causing connection acquisition to block and the service\u2019s connection pool to exhaust. With no new code changes, the latency spike is a downstream resource bottleneck rather than an application bug. Restoring DB capacity or throttling request volume resolves the issue.",
+    "proposed_fix": "Scale the database vertically (increase CPU and memory resources) or add a read replica and reconfigure the payments\u2011service connection pool to use the replica for read\u2011heavy traffic.",
+    "confidence": 0.86
+  },
+  {
+    "id": "INC-002",
+    "diagnosis": "The new TLS certificate rollout introduced a mismatched signing key: the auth\u2011service began signing JWTs with the private key from the newly deployed certificate while the verification component still referenced the previous public key (or an incorrect key ID). This key mismatch caused signature verification to fail, resulting in 500 errors for the affected requests. The root cause is an incomplete key rotation/configuration during the certificate deployment.",
+    "proposed_fix": "Update the verification component\u2019s configuration to reference the new public key (or correct key ID) from the rolled\u2011out TLS certificate and reload/restart the service to apply the change.",
+    "confidence": 0.93
+  },
+  {
+    "id": "INC-003",
+    "diagnosis": "The memory leak is caused by the newly deployed caching logic, which creates an unbounded in\u2011memory cache without proper eviction or TTL policies. Each request adds entries that are never removed, leading to a steady 2\u202f%/min increase in RAM usage despite unchanged traffic. This unchecked cache growth is the primary driver of the 89\u202f% memory utilization.",
+    "proposed_fix": "Implement a bounded cache with a size limit and TTL/eviction policy (e.g., LRU) and redeploy the service, clearing the existing in\u2011memory cache.",
+    "confidence": 0.93
+  },
+  {
+    "id": "INC-004",
+    "diagnosis": "The worker pods entered CrashLoopBackOff due to a recent deployment that introduced an unhandled exception (e.g., missing environment variable or nil\u2011pointer dereference) causing the container to exit immediately, triggering repeated restarts. Because the pods cannot stay running, no messages are consumed, leading to the queue backlog swelling to 45\u202fk. The root cause is the faulty code/configuration change that caused the worker containers to crash on start\u2011up.",
+    "proposed_fix": "Roll back the worker deployment to the last known good version (or update the deployment manifest to add the missing environment variable / fix the code causing the nil\u2011pointer) and redeploy the corrected image.",
+    "confidence": 0.93
+  },
+  {
+    "id": "INC-005",
+    "diagnosis": "The cluster entered a RED state because a network partition / node failure caused two of the three data nodes to become unreachable, leaving the majority of primary shards unassigned. With no active primary shards for the indexed indices, Elasticsearch cannot serve any search results, so the search\u2011service returns empty responses for all queries. The root cause is the loss of quorum on the data nodes, likely due to a network outage or hardware failure on those nodes.",
+    "proposed_fix": "Restore quorum by restarting the failed data nodes (or adding a replacement data node) so that at least two data nodes are reachable, then allow Elasticsearch to reallocate primary shards.",
+    "confidence": 0.86
+  }
+]

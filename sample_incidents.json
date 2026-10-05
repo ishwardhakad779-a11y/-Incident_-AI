@@ -1,0 +1,22 @@
+[
+  {
+    "id": "INC-001",
+    "report": "ALERT: payments-service p99 latency spiked to 4200ms (baseline 180ms). Error logs show: 'connection pool exhausted' repeated 340 times in last 5 minutes. DB CPU utilization at 92%. No recent deployments in last 2 hours."
+  },
+  {
+    "id": "INC-002",
+    "report": "ALERT: auth-service returning 500 errors for 15% of requests. Logs show 'JWT signature verification failed'. A new certificate was deployed 20 minutes ago."
+  },
+  {
+    "id": "INC-003",
+    "report": "ALERT: checkout-api memory usage climbing steadily, now at 89% and increasing 2%/min. No traffic spike observed. Deployed 6 hours ago with new caching logic."
+  },
+  {
+    "id": "INC-004",
+    "report": "ALERT: notification-worker queue backlog at 45,000 messages (normal < 500). Worker pods show CrashLoopBackOff. Last successful message processed 12 minutes ago."
+  },
+  {
+    "id": "INC-005",
+    "report": "ALERT: search-service returning empty results for 100% of queries. Elasticsearch cluster health status: RED. Two of three data nodes are unreachable."
+  }
+]
