@@ -45,7 +45,7 @@ Built with **LangGraph**, using a shared state object that flows through each no
 ## Tech Stack
 
 - **LangGraph** — agent orchestration / state graph
-- **Groq (Llama 3.3 70B)** — fast LLM inference
+- **Groq (openai/gpt-oss-20b) — fast LLM inference
 - **Python** — core logic
 - **JSON-based audit logging** — every decision is timestamped and persisted
 
